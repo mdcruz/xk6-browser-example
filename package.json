@@ -1,0 +1,16 @@
+{
+  "name": "xk6-browser-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "XK6_BROWSER_LOG=error BASE_URL=https://automationintesting.online/ xk6-browser run examples/submit-form.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/k6": "^0.37.1",
+    "jest": "^28.1.3"
+  }
+}
