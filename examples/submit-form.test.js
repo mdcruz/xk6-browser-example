@@ -3,7 +3,7 @@ import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
 
 export default function () {
   describe('Restful Booker Platform - Submit a form', () => {
-    const browser = launcher.launch('chromium', { headless: false })
+    const browser = launcher.launch('chromium', { headless: true })
     const context = browser.newContext()
     const page = context.newPage()
 
