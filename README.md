@@ -30,6 +30,10 @@ Once you have the pre-requisites above, perform the following steps:
 
     This will run an example test from the `examples` folder.
 
+    To run other tests, you can use the following command:
+
+    `xk6-browser run <file-name>`
+
 ## Troubleshooting
 
 - `xk6 command not found` - If you see this issue, make sure that the binary is placed in the correct environment variable. 
