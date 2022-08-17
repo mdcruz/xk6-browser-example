@@ -17,8 +17,8 @@ export const options = {
     },
   },
   thresholds: {
-    'browser_dom_content_loaded{customTag:messages}': ['p(90) < 1000'],
-    'browser_dom_content_loaded{customTag:news}': ['p(90) < 800'],
+    'browser_dom_content_loaded{url:https://test.k6.io/my_messages.php}': ['p(90) < 1000'],
+    'browser_dom_content_loaded{url:https://test.k6.io/news.php}': ['p(90) < 800'],
     browser_first_contentful_paint: ['max < 1000']
   }
 };
