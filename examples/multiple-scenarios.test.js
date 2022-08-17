@@ -1,31 +1,58 @@
-import http from 'k6/http';
+import launcher from 'k6/x/browser'
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 export const options = {
-  discardResponseBodies: true,
   scenarios: {
-    contacts: {
+    messages: {
       executor: 'constant-vus',
-      exec: 'contacts',
-      vus: 50,
-      duration: '30s',
+      exec: 'messages',
+      vus: 3,
+      duration: '10s',
     },
     news: {
-      executor: 'per-vu-iterations',
+      executor: 'constant-vus',
       exec: 'news',
-      vus: 50,
-      iterations: 100,
-      startTime: '30s',
-      maxDuration: '1m',
+      vus: 2,
+      duration: '5s',
     },
   },
+  thresholds: {
+    'browser_dom_content_loaded{customTag:messages}': ['p(90) < 1000'],
+    'browser_dom_content_loaded{customTag:news}': ['p(90) < 800'],
+    browser_first_contentful_paint: ['max < 1000']
+  }
 };
 
-export function contacts() {
-  http.get('https://test.k6.io/contacts.php', {
-    tags: { my_custom_tag: 'contacts' },
-  });
+export function messages() {
+  const browser = launcher.launch('chromium', { headless: true })
+  const context = browser.newContext()
+  const page = context.newPage()
+
+  page.goto('https://test.k6.io/my_messages.php', {
+    // This custom tag doesn't work as expected
+    tags: { customTag: 'messages' },
+    waitUntil: 'networkidle'
+  })
+
+  page.screenshot({ path: 'screenshots/05_messages.png' })
 }
 
 export function news() {
-  http.get('https://test.k6.io/news.php', { tags: { my_custom_tag: 'news' } });
+  const browser = launcher.launch('chromium', { headless: true })
+  const context = browser.newContext()
+  const page = context.newPage()
+
+  page.goto('https://test.k6.io/news.php', {
+    // This custom tag doesn't work as expected
+    tags: { customTag: 'news' },
+    waitUntil: 'networkidle'
+  })
+
+  page.screenshot({ path: 'screenshots/06_news.png' })
+}
+
+export function handleSummary(data) {
+  return {
+    "summary.html": htmlReport(data),
+  };
 }

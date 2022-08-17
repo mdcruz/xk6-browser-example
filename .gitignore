@@ -1,2 +1,6 @@
 node_modules
 screenshots
+
+# reports
+my_test_result.json
+summary.html
