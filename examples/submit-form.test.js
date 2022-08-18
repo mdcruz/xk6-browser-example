@@ -1,9 +1,13 @@
 import launcher from 'k6/x/browser'
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
+import { sleep } from 'k6'
 
 export default function () {
   describe('Restful Booker Platform - Submit a form', () => {
-    const browser = launcher.launch('chromium', { headless: true })
+    const browser = launcher.launch('chromium', { 
+      headless: false,
+      slowMo: '500ms'
+    })
     const context = browser.newContext()
     const page = context.newPage()
 
