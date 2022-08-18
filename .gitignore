@@ -4,3 +4,5 @@ screenshots
 # reports
 my_test_result.json
 summary.html
+
+.DS_Store
