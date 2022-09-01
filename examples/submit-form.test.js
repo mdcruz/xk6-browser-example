@@ -1,10 +1,9 @@
-import launcher from 'k6/x/browser'
+import { chromium } from 'k6/x/browser'
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
-import { sleep } from 'k6'
 
 export default function () {
   describe('Restful Booker Platform - Submit a form', () => {
-    const browser = launcher.launch('chromium', { 
+    const browser = chromium.launch({
       headless: false,
       slowMo: '500ms'
     })

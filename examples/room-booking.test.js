@@ -1,9 +1,9 @@
-import launcher from 'k6/x/browser'
+import { chromium } from 'k6/x/browser'
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
 
 export default function () {
   describe('Restful Booker Platform - Make a Booking', () => {
-    const browser = launcher.launch('chromium', { headless: false })
+    const browser = chromium.launch({ headless: false })
     const context = browser.newContext()
     const page = context.newPage()
 

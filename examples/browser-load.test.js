@@ -1,4 +1,4 @@
-import launcher from 'k6/x/browser'
+import { chromium } from 'k6/x/browser'
 
 export const options = {
   stages: [
@@ -13,9 +13,9 @@ export const options = {
 }
 
 export default function () {
-  const browser = launcher.launch('chromium', { headless: true })
+  const browser = chromium.launch({ headless: true })
   const context = browser.newContext()
   const page = context.newPage()
 
-  page.goto('https://mariedrake.com', { waituntil: 'networkidle' })
+  page.goto('https://testingwithmarie.com', { waituntil: 'networkidle' })
 }

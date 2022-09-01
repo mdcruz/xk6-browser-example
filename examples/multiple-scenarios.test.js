@@ -1,4 +1,4 @@
-import launcher from 'k6/x/browser'
+import { chromium } from 'k6/x/browser'
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 export const options = {
@@ -21,10 +21,10 @@ export const options = {
     'browser_dom_content_loaded{url:https://test.k6.io/news.php}': ['p(90) < 800'],
     browser_first_contentful_paint: ['max < 1000']
   }
-};
+}
 
 export function messages() {
-  const browser = launcher.launch('chromium', { headless: true })
+  const browser = chromium.launch({ headless: true })
   const context = browser.newContext()
   const page = context.newPage()
 
@@ -38,7 +38,7 @@ export function messages() {
 }
 
 export function news() {
-  const browser = launcher.launch('chromium', { headless: true })
+  const browser = chromium.launch({ headless: true })
   const context = browser.newContext()
   const page = context.newPage()
 
