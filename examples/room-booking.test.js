@@ -12,7 +12,7 @@ export default function () {
       height: 945
     })
 
-    page.goto(`${__ENV.BASE_URL}`, { waitUntil: 'networkidle' })
+    page.goto('https://automationintesting.online/', { waitUntil: 'networkidle' })
     page.waitForLoadState();
 
     // click the book button

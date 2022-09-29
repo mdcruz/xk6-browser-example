@@ -1,9 +1,13 @@
 import { chromium } from 'k6/x/browser'
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
+import { sleep } from 'k6'
 
 export default function () {
   describe('Blog - navigate to different urls', () => {
-    const browser = chromium.launch({ headless: false })
+    const browser = chromium.launch({
+      headless: false,
+      slowMo: '500ms'
+    })
 
     const context = browser.newContext()
     const page = context.newPage()
@@ -17,13 +21,17 @@ export default function () {
 
     page.screenshot({ path: 'screenshots / 03_blog_homepage.png' })
 
-    // the test is clicking the element but ultimately fails `Exception raised "clicking on element: timed out"`
-    page.$('[data-testid="linkElement"][href="https://www.testingwithmarie.com/courses"]').click()
-    page.waitForNavigation()
+    const courseButton = page.$('[data-testid="linkElement"][href="https://www.testingwithmarie.com/courses"]')
 
-    page.screenshot({ path: 'screenshots / 04_blog_courses.png' })
-
-    page.close()
-    browser.close()
+    Promise.all([
+      page.waitForNavigation(),
+      courseButton.click(),
+    ]).then(() => {
+      sleep(1)
+      page.screenshot({ path: 'screenshots / 04_courses.png' })
+    }).finally(() => {
+      page.close();
+      browser.close();
+    });
   })
 }

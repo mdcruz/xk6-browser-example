@@ -4,7 +4,6 @@ import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
 export default function () {
   describe('Restful Booker Platform - Submit a form', () => {
     const browser = chromium.launch({
-      headless: false,
       slowMo: '500ms'
     })
     const context = browser.newContext()
@@ -15,7 +14,7 @@ export default function () {
       height: 945
     })
 
-    page.goto(`${__ENV.BASE_URL}`, { waitUntil: 'networkidle' })
+    page.goto('https://automationintesting.online/', { waitUntil: 'networkidle' })
     page.waitForLoadState();
 
     // fill in the form
